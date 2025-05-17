@@ -2,47 +2,58 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navlinks from "./Navlinks";
-
 import { useState } from "react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  // const toggleMenu = ()=>{
-  //   setISOpen(!isOpen)
-  // }
-
   return (
-    <nav className="bg-white  ">
-      <div className="flex items-center font-medium justify-between">
-        <div className="z-50 p-5 md:w-auto w-full flex justify-between">
-          <Image src="/trumaxx-logo.webp" alt="Logo" width={120} height={40} />
+    <nav className="bg-white w-full fixed top-0 left-0 z-50 shadow-md">
+      <div className="flex items-center justify-between h-14 px-4 md:px-8">
+        {/* Logo and Mobile Menu  */}
+        <div className="flex items-center justify-between w-full md:w-auto">
+          <Link href="/">
+            <Image
+              src="/trumaxx-logo.webp"
+              alt="Logo"
+              width={120}
+              height={40}
+            />
+          </Link>
           <div
-            className="text-3xl text-red-500 md:hidden"
+            className="text-3xl text-red-500 md:hidden cursor-pointer"
             onClick={() => setOpen(!open)}
           >
-            <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
+            <ion-icon name={open ? "close" : "menu"}></ion-icon>
           </div>
         </div>
-        <ul className="md:flex hidden items-center gap-6 font-[Poppins]">
-          <li></li>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-6 font-Poppins">
           <Navlinks />
-        </ul>
-        <div className="md:flex hidden h-full w-fit bg-red-500  items-center ">
-          <span className="font-[Poppins]  p-3">Get in Touch</span>
         </div>
 
-        {/* mobile nav */}
+        {/* Get in Touch Button */}
+        <div className="hidden md:flex h-full items-center">
+          <Link
+            href="/contact-us"
+            className="bg-red-500 text-white font-Poppins px-4 py-2 hover:bg-red-600 transition"
+          >
+            Get in Touch
+          </Link>
+        </div>
+
+        {/* Mobile Menu */}
         <ul
-          className={`md:hidden bg-white fixed w-full h-[50vh] top-15 overflow-y-auto py-24 pl-4
-          duration-500 ${open ? "left-0" : "left-[-100%]"}
-          `}
+          className={`md:hidden bg-white fixed w-full top-14 left-0 h-[50vh] overflow-y-auto py-6 px-4 transition-all duration-500 ${
+            open ? "left-0" : "left-[-100%]"
+          }`}
         >
-          <li></li>
           <Navlinks />
         </ul>
       </div>
     </nav>
   );
 };
+
 export default Navbar;

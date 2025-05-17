@@ -1,12 +1,10 @@
 export const Linksdata = [
-  
   {
     name: "Home",
     link: "/",
     submenu: false,
     sublinks: [{ link: "", submenu: false }],
   },
-
   {
     name: "Company",
     link: "",
@@ -29,12 +27,13 @@ export const Linksdata = [
     sublinks: [
       {
         name: "Axial Fans",
+
         submenu: true,
         link: "",
         sublink: [
           { name: "AC Axial Fans", link: "/products/axial-fans/ac-axial-fans" },
           { name: "DC Axial Fans", link: "/products/axial-fans/dc-axial-fans" },
-          { name: "Ec Axial Fans", link: "/products/axial-fans/ec-axial-fans" },
+          { name: "EC Axial Fans", link: "/products/axial-fans/ec-axial-fans" },
         ],
       },
       {
@@ -43,16 +42,16 @@ export const Linksdata = [
         link: "",
         sublink: [
           {
-            name: "AC Axial Fans",
-            link: "/products/backward-curved-fans/ac-axial-fans",
+            name: "AC Backward Curved Fans",
+            link: "/products/backward-curved-fans/ac-backward-curved-fans",
           },
           {
-            name: "DC Axial Fans",
-            link: "/products/backward-curved-fans/dc-axial-fans",
+            name: "DC Backward Curved Fans",
+            link: "/products/backward-curved-fans/dc-backward-curved-fans",
           },
           {
-            name: "Ec Axial Fans",
-            link: "/products/backward-curved-fans/ec-axial-fans",
+            name: "EC Backward Curved Fans",
+            link: "/products/backward-curved-fans/ec-backward-curved-fans",
           },
         ],
       },
@@ -70,7 +69,7 @@ export const Linksdata = [
             link: "/products/compact-fans/dc-compact-fans",
           },
           {
-            name: "Ec Compact Fans",
+            name: "EC Compact Fans",
             link: "/products/compact-fans/ec-compact-fans",
           },
         ],
@@ -82,11 +81,11 @@ export const Linksdata = [
         sublink: [
           {
             name: "AC Shaded Pole Motors",
-            link: "/products/shaded-pole-motors/ac-Shaded-Pole-Motors",
+            link: "/products/shaded-pole-motors/ac-shaded-pole-motors",
           },
           {
             name: "DC Shaded Pole Motors",
-            link: "/products/shaded-pole-motors/dc-Shaded-Pole-Motors",
+            link: "/products/shaded-pole-motors/dc-shaded-pole-motors",
           },
         ],
       },

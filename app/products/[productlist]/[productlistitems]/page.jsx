@@ -1,9 +1,10 @@
-"use client";
+
 const page = async ({ params }) => {
+  
   return (
     <div className=" flex items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <h1 className="text-2xl text-red-400 font-bold font-serif">
-        {params.productlist} == {params.productlistitems}{" "}
+        {await params.productlist} == { await params.productlistitems}
       </h1>
     </div>
   );

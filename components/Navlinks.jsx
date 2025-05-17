@@ -8,92 +8,130 @@ const Navlinks = () => {
   const [subHeading, setSubHeading] = useState("");
 
   const [active, setActive] = useState("");
+  const [subactive, setsubActive] = useState("");
+
+  const [Dropdownactive, setdropActive] = useState("");
+
+  const [nevigate, setNevigate] = useState("");
+  const [code, setCode] = useState("");
 
   return (
     <>
-      {Linksdata.map((links, id) => (
-        <div className="">
-          <div className="px-3 text-left md:curser-pointer group ">
-            <h1
-              className="text-gray-700  py-2 text-lg "
-              onClick={() =>
-                heading !== links.name ? setHeading(links.name) : setHeading("")
-              }
+      {Linksdata.map((link, id) => (
+        <div key={id} className="relative group">
+          {/* Main Menu Item */}
+          <div className="border-b-2 md:border-0  px-3">
+            <Link
+              href={link.link || "#"}
+              className={`text-gray-800 hover:text-red-500 py-2 font-Poppins block transition ${
+                active === id ? "text-red md:border-b-4 border-b-black " : ""
+              }`}
+              onClick={() => {
+                setActive(id);
+                setsubActive("");
+                setNevigate("");
+                setdropActive("");
+                 if (link.submenu){
+                heading !== link.name ? setHeading(link.name) : setHeading("")}
+              }}
             >
-              <Link
-                href={links.link}
-                onClick={() => setActive(id)}
-                className={` hover:text-red-500 ${
-                  active === id ? "text-red-500" : "text-gray-700"
-                }`}
-              >
-                {links.name}
-              </Link>
-            </h1>
-            {links.submenu && (
-              <div>
-                <div className="absolute top-10 hidden group-hover:md:block hover:md:block">
-                  <div className="py-3"></div>
-                  <div className="bg-white p-5  grid grid-cols-2 gap-5">
-                    {links.sublinks.map((mysublink) => (
-                      <div>
-                        <h1 className="text-gray-700  hover:text-red-500  ">
-                          <Link href={mysublink.link}>{mysublink.name}</Link>
-                        </h1>
-                        {mysublink.submenu && (
-                          <div>
-                            {mysublink.sublink.map((slink) => (
-                              <li className="text-blue-600">
-                                <Link
-                                  href={slink.link}
-                                  className="hover:text-green-600"
-                                >
-                                  {slink.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+              {link.name}
+            </Link>
+
+            {/* Dropdown Menu for Desktop */}
+            {link.submenu && (
+              <div className="absolute left-0 top-full hidden group-hover:md:block hover:md:block bg-white shadow-lg  min-w-[200px] z-50">
+                <div className="py-2">
+                  {link.sublinks.map((sublink, subId) => (
+                    <div key={subId} className="relative group/sub">
+                      <Link
+                        href={sublink.link || "#"}
+                        className={`block px-4 py-2 text-gray-700 hover:text-red-500 hover:bg-gray-100 transition
+                          ${
+                            Dropdownactive === subId && !sublink.submenu
+                              ? "border-l-4 border-l-red-600 bg-gray-100"
+                              : ""
+                          }
+                          `}
+                        onClick={() => {
+                          setdropActive(subId);
+                          setActive("");
+                          setNevigate("");
+                        }}
+                      >
+                        {sublink.name}
+                      </Link>
+                      {/* Nested Submenu for Desktop */}
+                      {sublink.submenu && sublink.sublink && (
+                        <div className="absolute left-full top-0 hidden group-hover/sub:block bg-white shadow-lg  min-w-[200px]  ">
+                          {sublink.sublink.map((nestedLink, nestedId) => (
+                            <Link
+                              key={nestedId}
+                              href={nestedLink.link}
+                              className={`block px-4 py-2 text-gray-700 hover:text-red-500 hover:bg-gray-100 transition
+                                ${
+                                  nevigate === nestedId &&
+                                  code === nestedLink.link
+                                    ? "border-l-4 border-l-red-600 bg-gray-100"
+                                    : ""
+                                }
+                                `}
+                              onClick={() => {
+                                setNevigate(nestedId);
+                                setCode(nestedLink.link);
+                                setdropActive("");
+                                setActive("");
+                              }}
+                            >
+                              {nestedLink.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
           </div>
-          {/*mobile menu*/}
+
+          {/* Mobile Menu Dropdown */}
           <div
-            className={`
-              ${heading === links.name ? "md:hidden" : "hidden"}
-              `}
+            className={`md:hidden ${
+              heading === link.name ? "block" : "hidden"
+            }`}
           >
-            {/*sublinks */}
-            {links.sublinks.map((slinks) => (
-              <div>
-                <div>
-                  <h1
-                    onClick={() =>
-                      subHeading !== slinks.name
-                        ? setSubHeading(slinks.name)
-                        : setSubHeading("")
-                    }
-                    className=" text-gray-700 hover:text-red-400 py-4 pl-7 md:pr-0 pr-5"
+            {link.sublinks.map((sublink, subId) => (
+              <div key={subId}>
+                <div className="border-b-2">
+                  <Link
+                    href={sublink.link || "#"}
+                    className={`block py-2 pl-7 text-gray-700 hover:text-red-500 transition
+                      ${subactive === subId ? "text-red-500" : ""}   `}
+                    onClick={() => {
+                      setsubActive(subId);
+                      subHeading !== sublink.name
+                        ? setSubHeading(sublink.name)
+                        : setSubHeading("");
+                    }}
                   >
-                    <Link href={slinks.link}>{slinks.name}</Link>
-                  </h1>
-                  {slinks.submenu && Array.isArray(slinks.sublink) && (
+                    {sublink.name}
+                  </Link>
+                  {/* Nested Submenu for Mobile */}
+                  {sublink.submenu && sublink.sublink && (
                     <div
-                      className={`${
-                        subHeading === slinks.name ? "md:hidden" : "hidden"
+                      className={`pl-9 ${
+                        subHeading === sublink.name ? "block" : "hidden"
                       }`}
                     >
-                      {slinks.sublink.map((slink) => (
-                        <li
-                          key={slink.name}
-                          className="py-4 pl-9 text-gray-700 hover:text-blue-500"
+                      {sublink.sublink.map((nestedLink, nestedId) => (
+                        <Link
+                          key={nestedId}
+                          href={nestedLink.link}
+                          className="block py-2 text-gray-700 hover:text-red-500 transition"
                         >
-                          <Link href={slink.link}>{slink.name}</Link>
-                        </li>
+                          {nestedLink.name}
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -106,4 +144,5 @@ const Navlinks = () => {
     </>
   );
 };
+
 export default Navlinks;
